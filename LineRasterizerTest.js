@@ -16,9 +16,29 @@ function setup() {
     endpoint1 = new Point(10, 10);
     endpoint2 = new Point(40, 35);
     
-    // Create rasterizer instance
+    // Default algorithm on page load
     rasterizer = new BresenhamRasterizer();
 }
+
+document.getElementById("algoSelect").addEventListener("change", function (e) {
+    const algo = e.target.value;
+
+    if (algo === "bresenham") {
+        rasterizer = new BresenhamRasterizer();
+    } 
+    else if (algo === "dda") {
+        rasterizer = new DDARasterizer();
+    } 
+    else if (algo === "midpoint") {
+        rasterizer = new MidpointCircleRasterizer();
+    } 
+    else if (algo === "wu") {
+        rasterizer = new WuRasterizer();
+    }
+
+    redraw(); // re-render with new algorithm
+});
+
 
 function draw() {
     background(255);
